@@ -10,7 +10,6 @@ const server = http.createServer((req, res)=>{
     const url = req.url
     if (url === '/'){
         res.writeHead(200, {'content-type': 'text/html'})
-        console.log(req.method)
         res.write(homePage)
         res.end()
     } else if (url === '/styles.css'){
@@ -19,17 +18,14 @@ const server = http.createServer((req, res)=>{
         res.end()
     } else if (url === '/logo.svg'){
         res.writeHead(200, {'content-type': 'image/svg+xml'})
-        console.log(req.method)
         res.write(homeLogo)
         res.end()
     } else if (url === '/browser-app.js'){
         res.writeHead(200, {'content-type': 'text/javascript'})
-        console.log(req.method)
         res.write(homeLogic)
         res.end()
     } else if (url === '/about.html'){
         res.writeHead(200, {'content-type': 'text/html'})
-        console.log(req.method)
         res.write(`<h1>This is my About Page o/, i'm currently hosting in the following url: ${req.headers.host}</h1>`)
         res.end() 
     } else {
