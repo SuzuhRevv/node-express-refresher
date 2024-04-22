@@ -29,6 +29,25 @@ app.get('/api/products/:productID/reviews/:reviewID', (req, res) => {
     console.log(req.params)
     res.send('Hello world')
 })
+app.get('/api/v1/query', (req, res) => {
+    console.log(req.query)
+    const { search, limit } = req.query
+    let sortedProduct = [...products]
+        if (search){
+            sortedProduct = sortedProduct.filter((product) => {
+                return product.name.startsWith(search)
+            })
+        }
+    
+        if (limit) {
+            sortedProduct = sortedProduct.slice(0, Number(limit))
+        }
+        if (sortedProduct.length < 1) {
+            return res.status(200).json({sucess: true, data: []})
+        }
+        return res.status(200).json(sortedProduct)
+})
+
 
 app.listen(5000, ()=> {
     console.log('listening on port 5000...')
