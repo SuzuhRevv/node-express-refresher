@@ -1,35 +1,13 @@
 const express = require('express');
 const app = express();
-const logger = require('./logger')
-const authorize = require('./authorize')
+let { people } = require('./data')
 
-app.use([logger, authorize])
-app.get('/', (req, res) => {
-    res.send('Home');
-});
 
-app.get('/about/', (req, res) => {
-    res.send('About');
-});
-
-app.get('/api/products', (req, res) => {
-    res.send('Products')
-})
-
-app.get('/api/items', (req, res) => {
-    console.log(req.user)
-    res.send('Items')
-}) 
-
-app.get('/about/:nomeDoUsuario', (req, res) => {
-    console.log(req.params);
-    res.send('About id');
-    const { nomeDoUsuario: nome } = req.params;
-    console.log(nome);
-});
+app.get('/api/people', (req, res) => {
+    res.status(200).json({sucess: true, data: people}) //In this case i can use only people to return all the json data in my data.js or i can just pass some name : people 
+    })
 
 app.listen(5000, () => {
     console.log('listening on port 5000...');
 });
 
-module.exports = logger;
